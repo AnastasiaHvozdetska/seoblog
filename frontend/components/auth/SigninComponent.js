@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { signUp, isAuth } from '../../actions/auth';
+import { signIn, authenticate, isAuth } from '../../actions/auth';
 import Router from 'next/router';
 
-const SignupComponent = () => {
+const SigninComponent = () => {
     const [values, setValues] = useState({
-        name: 'Anastasia',
         email: 'anastasia9298@gmail.com',
         password: '345226',
         error: '',
@@ -13,19 +12,18 @@ const SignupComponent = () => {
         showForm: true
     });
 
-    const {name, email, password, error, loading, message, showForm} = values;
+    const { email, password, error, loading, message, showForm } = values;
 
     useEffect(() => {
         isAuth() && Router.push('/')
     }, [])
 
-
     const handleSubmit = e => {
         e.preventDefault();
 
         setValues({ ...values, loading: true, error: false});
-        const user = { name, email, password };
-        signUp(user).then(data => {
+        const user = { email, password };
+        signIn(user).then(data => {
                 if(data.error) {
                         setValues({
                             ...values,
@@ -33,15 +31,8 @@ const SignupComponent = () => {
                             loading: false
                         });
                 } else {
-                    setValues({
-                        ...values,
-                        name: '',
-                        email: '',
-                        password: '',
-                        error: '',
-                        loading: false,
-                        message: data.message,
-                        showForm: false
+                    authenticate(data, () => {
+                        Router.push(`/`)
                     })
                 }
             }).catch(error => console.log(error))
@@ -55,17 +46,9 @@ const SignupComponent = () => {
     const showError = () => error ? <div className="alert alert-danger">{error}</div> : ""
     const showMessage = () => message ? <div className="alert alert-info">{message}</div> : ""
 
-    const signupForm = () => {
+    const signinForm = () => {
         return (
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <input
-                        value={name}
-                        onChange={handleChange('name')} 
-                        type="text" 
-                        className="form-control"
-                        placeholder="Type your name"/>
-                </div>
                 <div className="form-group">
                     <input
                         value={email}
@@ -84,7 +67,7 @@ const SignupComponent = () => {
                 </div>
 
                 <button className="btn btn-primary">
-                    Sign up
+                    Signin
                 </button>
             </form>
         )
@@ -94,9 +77,9 @@ const SignupComponent = () => {
             {showError()}
             {showLoading()}
             {showMessage()}
-            {showForm && signupForm()}  
+            {showForm && signinForm()}  
         </React.Fragment>
     )
 }
 
-export default SignupComponent;
+export default SigninComponent;

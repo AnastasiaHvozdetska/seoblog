@@ -10,6 +10,7 @@ require('dotenv').config();
 //bring routes
 const blogRoutes = require('./routes/blog');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 
 
 //app
@@ -19,7 +20,7 @@ const app = express();
 mongoose.connect(process.env.DATABASE_LOCAL, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
 }).then(() => {
     console.log('database connected')
 })
@@ -30,13 +31,14 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // cors
-if(process.env.NODE_ENV === 'developmen') {
+if(process.env.NODE_ENV === 'development') {
     app.use(cors({ origin: `${process.env.CLIENT_URL}`}));
 }
 
 // routes middleware
 app.use('/api', blogRoutes);
 app.use('/api', authRoutes);
+app.use('/api', userRoutes);
 
 // port
 const port = process.env.PORT || 8000;
