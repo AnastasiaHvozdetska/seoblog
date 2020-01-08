@@ -1,7 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { time } = require('../controllers/blog');
+const { create, list, listFullBlogs, remove, read, update } = require('../controllers/blog');
 
-router.get('/', time);
+const { requireSignin, adminMiddleware } = require('../controllers/auth');
+
+router.post('/blog', requireSignin, adminMiddleware, create);
+router.get('/blogs', list);
+router.post('/blogs-categories-tags', listFullBlogs);
+router.get('/blog/:slug', read);
+router.delete('/blog/:slug', requireSignin, adminMiddleware, remove);
+router.put('/blog/:slug', requireSignin, adminMiddleware, update);
 
 module.exports = router;
