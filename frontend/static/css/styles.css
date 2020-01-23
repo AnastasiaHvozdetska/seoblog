@@ -10,3 +10,9 @@ img {
     width: 100%;
     height: auto;
 }
+
+.featured-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover
+}
