@@ -11,11 +11,14 @@
         "VERSION": true,
         "BRANCH": true,
         "COMMITHASH": true,
+        "React": "writable",
         "_": true
     },
     "parser": "babel-eslint",
     "extends": [
-        "airbnb"
+        "airbnb",
+        "eslint:recommended",
+        "plugin:react/recommended"
     ],
     "settings": {
         "import/resolver": "webpack"
@@ -95,6 +98,7 @@
         "no-multi-spaces": 2,
         "no-multiple-empty-lines": 2,
         "no-tabs": 2,
+        "no-console": "warn",
         "no-trailing-spaces": 2,
         "object-curly-spacing": [
             "error",
@@ -152,6 +156,7 @@
         "react/require-default-props": 0,
         "react/jsx-filename-extension": 0,
         "react/no-string-refs": 2,
+        "react/react-in-jsx-scope": "off",
         "jsx-a11y/href-no-hash": 0,
         "jsx-a11y/no-noninteractive-element-interactions": 0,
         "class-methods-use-this": 2,
