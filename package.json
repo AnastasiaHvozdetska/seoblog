@@ -1,0 +1,25 @@
+{
+  "name": "seoblog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npm run start --prefix backend",
+    "client": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnastasiaHvozdetska/seoblog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnastasiaHvozdetska/seoblog/issues"
+  },
+  "homepage": "https://github.com/AnastasiaHvozdetska/seoblog#readme",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
